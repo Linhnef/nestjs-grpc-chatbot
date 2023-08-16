@@ -1,10 +1,13 @@
 /* eslint-disable prettier/prettier */
-import { Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 class ChatBot {
     @PrimaryGeneratedColumn('uuid')
     public id: string;
+
+    @Column({ nullable: false })
+    public website: string;
 
 }
 
