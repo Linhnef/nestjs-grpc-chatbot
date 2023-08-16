@@ -2,12 +2,14 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import User from './main/entity/chat-bot.entity';
 import { MainModule } from './main/main.module';
+import ChatbotManager from './main/entity/chat-bot-manager.entity';
+import Chatbot from './main/entity/chat-bot.entiry';
+import ChatbotAttribute from './main/entity/chat-bot-attribute.entiry';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([ChatbotManager, Chatbot, ChatbotAttribute]),
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -16,7 +18,7 @@ import { MainModule } from './main/main.module';
       username: process.env.PG_USERNAME,
       password: process.env.PG_PASSWORD,
       database: process.env.PG_DATABASE_NAME,
-      entities: [User],
+      entities: [ChatbotManager, Chatbot, ChatbotAttribute],
       synchronize: true,
     }),
     MainModule

@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { createParamDecorator, ExecutionContext } from "@nestjs/common";
-import User from "../entity/chat-bot.entity";
+import { User } from "../dto/User";
 
 
 export const GetUser = createParamDecorator(
