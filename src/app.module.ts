@@ -12,7 +12,7 @@ import { MainModule } from './main/main.module';
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.PG_HOST,
-      port: 5432,
+      port: Number(process.env.PG_PORT) || 25060,
       username: process.env.PG_USERNAME,
       password: process.env.PG_PASSWORD,
       database: process.env.PG_DATABASE_NAME,
