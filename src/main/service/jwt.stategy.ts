@@ -2,9 +2,8 @@
 import { Inject, Injectable, OnModuleInit } from "@nestjs/common";
 import { PassportStrategy } from "@nestjs/passport";
 import { ExtractJwt, Strategy } from 'passport-jwt'
-import User from "../entity/chat-bot.entity";
 import { JwtPayload } from "../dto/jwt-payload.dto";
-import { GrpcAuthService } from "./grpc-auth-service";
+import { GrpcAuthService, User } from "./grpc-auth.service";
 import { ClientGrpc } from "@nestjs/microservices";
 import { firstValueFrom } from "rxjs";
 

@@ -2,11 +2,23 @@
 /* eslint-disable prettier/prettier */
 import { Observable } from "rxjs";
 import { JwtPayload } from "../dto/jwt-payload.dto";
-import User from "../entity/chat-bot.entity";
 import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
+export interface User {
+    id: string;
+    email: string;
+    avatar: string;
+    username: string;
+    isEnable2fa: boolean;
+    isOnboarding: boolean;
+    exited: boolean
+}
 
 export interface GrpcAuthService {
     validate(request: JwtPayload): Observable<User>;
+}
+
+export interface AuthServiceController {
+    validate(request: JwtPayload): Promise<User> | Observable<User> | User;
 }
 
 export function AuthServiceControllerMethods() {
