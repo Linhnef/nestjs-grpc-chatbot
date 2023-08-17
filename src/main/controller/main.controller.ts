@@ -4,20 +4,17 @@ import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { ChatbotService } from '../service/chat-bot.service';
-import { ChatbotManagerService } from '../service/chat-bot-manager.service';
-import { ChatbotAttributeService } from '../service/chat-bot-attribute.service';
 import { CreateChatbotDto } from '../dto/create-chat-bot.dto';
 import { GetUser } from '../decorator/get-user.decorator';
 import { PaginationRequestDto } from 'src/pagination/pagination-request.dto';
-import { User } from '../dto/User';
+import { User } from '../service/grpc-auth.service';
+import { UpdateChatbotDto } from '../dto/update-chat-bot-attribute';
 
 @ApiTags('chat bot')
 @Controller()
 export class MainController {
     constructor(
         private readonly chatbotService: ChatbotService,
-        private readonly chatbotManagerService: ChatbotManagerService,
-        private readonly chatbotAttributeService: ChatbotAttributeService,
     ) { }
 
     @Get('welcome')
@@ -29,7 +26,7 @@ export class MainController {
     @Post('create-chat-bot')
     @UseGuards(AuthGuard('jwt'))
     async createChatbot(@GetUser() user: User, @Body() params: CreateChatbotDto) {
-        return await this.chatbotManagerService.create(user, params)
+        return await this.chatbotService.create(user, params)
     }
 
     @Post('get-all-chat-bot')
@@ -38,15 +35,17 @@ export class MainController {
         return await this.chatbotService.getAll(user, pagination)
     }
 
-    @Get('get-chat-bot:id')
+    @Get('get-chat-bot/:id')
     @UseGuards(AuthGuard('jwt'))
     async getChatbot(@GetUser() user: User, @Param('id') id: string) {
-        const chatbot = await this.chatbotService.get({ id: id })
-        const chatbotAttribute = await this.chatbotAttributeService.get({ id: id })
-        return {
-            ...chatbot,
-            attribute: { ...chatbotAttribute }
-        }
+        return await this.chatbotService.getChatbot(user, id)
     }
+
+    @Post('update-chat-bot')
+    @UseGuards(AuthGuard('jwt'))
+    async updateChatbot(@GetUser() user: User, @Body() params: UpdateChatbotDto) {
+        return await this.chatbotService.updateChatbotAttribute(user, params)
+    }
+
 
 }

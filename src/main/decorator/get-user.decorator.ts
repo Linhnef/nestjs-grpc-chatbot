@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { createParamDecorator, ExecutionContext } from "@nestjs/common";
-import { User } from "../dto/User";
+import { User } from "../service/grpc-auth.service";
 
 
 export const GetUser = createParamDecorator(

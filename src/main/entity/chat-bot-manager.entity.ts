@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Column, CreateDateColumn, Entity, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, OneToOne, JoinColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import Chatbot from './chat-bot.entiry';
 
 @Entity('chatbot_managers')
@@ -8,7 +8,8 @@ class ChatbotManager {
     @PrimaryGeneratedColumn('uuid')
     public id: string;
 
-    @OneToOne(() => Chatbot, { onDelete: "CASCADE" })
+    @OneToOne(() => Chatbot, (chatbot) => chatbot.chatbotManager, { cascade: true, onDelete: "CASCADE" })
+    @JoinColumn()
     chatbot: Chatbot
 
     @Column({ nullable: false })

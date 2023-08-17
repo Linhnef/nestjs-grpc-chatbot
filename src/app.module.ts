@@ -9,7 +9,6 @@ import ChatbotAttribute from './main/entity/chat-bot-attribute.entiry';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([ChatbotManager, Chatbot, ChatbotAttribute]),
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',

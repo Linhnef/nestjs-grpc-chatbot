@@ -3,7 +3,6 @@
 import { Observable } from "rxjs";
 import { JwtPayload } from "../dto/jwt-payload.dto";
 import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
-
 export interface User {
     id: string;
     email: string;
@@ -11,7 +10,7 @@ export interface User {
     username: string;
     isEnable2fa: boolean;
     isOnboarding: boolean;
-    accessToken: string;
+    exited: boolean
 }
 
 export interface GrpcAuthService {
