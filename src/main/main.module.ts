@@ -25,7 +25,7 @@ import { MainController } from './controller/main.controller';
                 transport: Transport.GRPC,
                 options: {
                     package: 'user',
-                    protoPath: join(process.cwd(), 'src/main/protos/rpc/user.proto')
+                    protoPath: join(process.cwd(), 'dist/protos/rpc/user.proto')
                 },
             },
         ])
